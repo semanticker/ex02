@@ -1,0 +1,12 @@
+create table ZR_TBL_BOARD
+(
+	bno serial not null
+		constraint ZR_TBL_BOARD_pk
+			primary key,
+	title varchar(200) not null,
+	content varchar(2000) not null,
+	writer varchar(50) not null,
+	regdate timestamp default now(),
+	updatedate timestamp default now()
+);
+
