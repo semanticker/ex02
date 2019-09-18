@@ -19,26 +19,28 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void register(BoardVO board) {
 		log.info("test");
-		// TODO Auto-generated method stub
-
+		mapper.insertReturnKey(board);
 	}
 
 	@Override
 	public BoardVO get(Long bno) {
-		// TODO Auto-generated method stub
-		return null;
+		return mapper.read(bno);
 	}
 
 	@Override
 	public boolean modify(BoardVO board) {
+		
+		int result = mapper.update(board);
+		
 		// TODO Auto-generated method stub
-		return false;
+		return result == 1;
 	}
 
 	@Override
 	public boolean remove(Long bno) {
+		int result = mapper.delete(bno);
 		// TODO Auto-generated method stub
-		return false;
+		return result == 1;
 	}
 
 	@Override

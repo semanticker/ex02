@@ -25,5 +25,5 @@ public class BoardServiceTests {
 		log.info(service);
 		assertNotNull(service);
 	}
-
+	
 }
