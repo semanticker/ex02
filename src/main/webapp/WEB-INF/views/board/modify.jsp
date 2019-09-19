@@ -30,7 +30,7 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <!-- <form role="form" action="/board/register" method="post"> -->
+            <form name="data_form" role="form" action="/board/modify" method="post">
               <div class="box-body">
                 <div class="form-group">
                   <label for="bno">Bno</label>
@@ -38,29 +38,25 @@
                 </div>
                 <div class="form-group">
                   <label for="title">Title</label>
-                  <input class="form-control" name="title" placeholder="Enter title" value="<c:out value='${board.title}'/>" readonly="readonly">
+                  <input class="form-control" name="title" placeholder="Enter title" value="<c:out value='${board.title}'/>">
                 </div>
                 <div class="form-group">
                   <label for="content">Text area</label>
-                  <textarea class="form-control" rows="3" name="content" readonly="readonly"><c:out value='${board.content}'/></textarea>
+                  <textarea class="form-control" rows="3" name="content"><c:out value='${board.content}'/></textarea>
                 </div>
                 <div class="form-group">
                   <label for="writer">Writer</label>
-                  <input class="form-control" name="writer" placeholder="Enter writer" value="<c:out value='${board.writer}'/>" readonly="readonly">
+                  <input class="form-control" name="writer" placeholder="Enter writer" value="<c:out value='${board.writer}'/>">
                 </div>
               </div>
               <!-- /.box-body -->
 
               <div class="box-footer">
                 <button data-oper='modify' class="btn btn-default">Modify</button>
-                <button data-oper='list' class="btn btn-default">List</button>
-                
-                <form id="operForm" action="/board/modify" method="get">
-                	<input type="hidden" id="bno" name="bno" value="<c:out value='${board.bno}'/>">
-                </form>
-                
+                <button data-oper='remove' class="btn btn-danger">Remove</button>
+                <button data-oper='list' class="btn btn-info">List</button>
               </div>
-            <!-- </form> -->
+            </form>
           </div>
           <!-- /.box -->
       </div>
@@ -69,22 +65,28 @@
       <!--/.col (left) -->
       </section>
     <!-- /.content -->
-    
     <script type="text/javascript">
-    	$(document).ready(function(){
-    		var operForm = $('#operForm');
+    $(document).ready(function(){
+    	var formObj = $("form[name=data_form]");
+    	
+    	$('button').on("click", function(e){
+    		e.preventDefault();
     		
-    		$("button[data-oper='modify']").on("click", function(e){
-    			operForm.attr("action", "/board/modify").submit();
-    		});
+    		var operation = $(this).data("oper");
     		
-    		$("button[data-oper='list']").on("click", function(e){
-    			operForm.find("#bno").remove();
-    			operForm.attr("action", "/board/list");
-    			operForm.submit();
-    		});
+    		console.log(operation);
+    		
+    		if(operation == 'remove'){
+    			formObj.attr("action", "/board/remove");
+    		}else if(operation == 'list'){
+    			//self.location = '/board/list';
+    			formObj.attr("action", "/board/list").attr("method", "get");
+    			formObj.empty();
+    		}
+    		formObj.submit();
     	});
+    	
+    });
     </script>
-    
     <%@include file="../includes/footer.jsp" %>
     
