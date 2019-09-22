@@ -67,6 +67,30 @@
                 </tfoot>
               </table>
               
+              <!-- paging -->
+              <div class="pull-right">
+              	<ul class="pagination">
+              		<c:if test="${pageMaker.prev}">
+              			<li class="paginate_button previous"><a href="#">Previous</a>
+              		</c:if>
+              		
+              		<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+              			<li class="paginate_button ${pageMaker.cri.pageNum == num ? "active" : "" }">
+              				<a href="${num}">${num}</a>
+              			</li>
+              		</c:forEach>
+              		
+              		<c:if test="${pageMaker.next}">
+              			<li class="paginate_button next"><a href="#">Next</a>
+              		</c:if>
+              	</ul>
+              </div>
+              
+              <form id="actionForm" action="/board/list" method="get">
+              	<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
+              	<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
+              </form>
+              
               <div class="modal modal-success fade" id="modal-success">
 	          <div class="modal-dialog">
 	            <div class="modal-content">
@@ -76,7 +100,7 @@
 	                <h4 class="modal-title">Success Modal</h4>
 	              </div>
 	              <div class="modal-body">
-	                <p>처리가 완료되었습니.</p>
+	                <p>처리가 완료되었습니다.</p>
 	              </div>
 	              <div class="modal-footer">
 	                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
@@ -124,6 +148,17 @@
     	$('#regBtn').on("click", function(){
     		self.location = "/board/register";
     	});
+    	
+    	var actionForm = $("#actionForm");
+    	
+    	$(".paginate_button a").on("click", function(e){
+    		e.preventDefault();
+    		
+    		console.log('click');
+    		
+    		actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+    		actionForm.submit();
+    	})
     	
     	
     });
