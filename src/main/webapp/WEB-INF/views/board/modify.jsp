@@ -31,6 +31,8 @@
             <!-- /.box-header -->
             <!-- form start -->
             <form name="data_form" role="form" action="/board/modify" method="post">
+            	<input type="hidden" id="pageNum" name="pageNum" value="<c:out value='${cri.pageNum}'/>">
+                <input type="hidden" id="amount" name="amount" value="<c:out value='${cri.amount}'/>">
               <div class="box-body">
                 <div class="form-group">
                   <label for="bno">Bno</label>
@@ -81,7 +83,14 @@
     		}else if(operation == 'list'){
     			//self.location = '/board/list';
     			formObj.attr("action", "/board/list").attr("method", "get");
+    			
+    			var pageNumTag = $("input[name='pageNum']").clone();	
+    			var amountTag = $("input[name='amount']").clone();	
+    			
     			formObj.empty();
+    			formObj.empty();
+    			formObj.append(pageNumTag);
+    			formObj.append(amountTag);
     		}
     		formObj.submit();
     	});
