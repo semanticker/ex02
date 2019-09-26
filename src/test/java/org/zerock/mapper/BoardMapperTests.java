@@ -25,52 +25,52 @@ public class BoardMapperTests {
 		mapper.getList().forEach(board -> log.info(board));
 	}
 	
-	@Test
+	//@Test
 	public void testInsert() {
 		BoardVO board = new BoardVO();
-		board.setTitle("새로 작성하는 글");
-		board.setContent("새로 작성하는 내용");
+		board.setTitle("�깉濡� �옉�꽦�븯�뒗 湲�");
+		board.setContent("�깉濡� �옉�꽦�븯�뒗 �궡�슜");
 		board.setWriter("newbie");
 		
 		mapper.insert(board);
 		log.info(board);
 	}
 	
-	@Test
+	//@Test
 	public void testInsertReturnKey() {
 		BoardVO board = new BoardVO();
-		board.setTitle("새로 작성하는 글");
-		board.setContent("새로 작성하는 내용");
+		board.setTitle("�깉濡� �옉�꽦�븯�뒗 湲�");
+		board.setContent("�깉濡� �옉�꽦�븯�뒗 �궡�슜");
 		board.setWriter("newbie");
 		
 		mapper.insertReturnKey(board);
 		log.info(board);
 	}
 	
-	@Test
+	//@Test
 	public void testRead() {
 		BoardVO board = mapper.read(5L);
 		log.info(board);
 	}
 	
-	@Test
+	//@Test
 	public void testDelete() {
 		log.info("DELETE COUNT: " + mapper.delete(5L));
 	}
 	
-	@Test
+	//@Test
 	public void testUpdate() {
 		BoardVO board = new BoardVO();
 		board.setBno(3L);
-		board.setTitle("수정된 제목");
-		board.setContent("수정된 내용");
+		board.setTitle("�닔�젙�맂 �젣紐�");
+		board.setContent("�닔�젙�맂 �궡�슜");
 		board.setWriter("user00");
 		
 		int count = mapper.update(board);
 		log.info("UPDATE COUNT: " + count);
 	}
 	
-	@Test
+	//@Test
 	public void testPaging() {
 		Criteria criteria = new Criteria();
 		
@@ -79,5 +79,19 @@ public class BoardMapperTests {
 		
 		List<BoardVO> list = mapper.getListWithPaging(criteria);
 		list.forEach(board->log.info(board));
+	}
+	
+	@Test
+	public void testSearch() {
+		Criteria criteria = new Criteria();
+		criteria.setKeyword("안효");
+		criteria.setType("T");
+		
+		List<BoardVO> list = mapper.getListWithPaging(criteria);
+		list.forEach(board -> log.info(board));
+		
+		int result = mapper.getTotalCount(criteria);
+		log.info(result);
+		
 	}
 }
